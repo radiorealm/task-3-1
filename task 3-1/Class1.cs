@@ -5,9 +5,39 @@ namespace hw
 {
     class OneDim
     {
-        public int[] array;
+        int[] array;
+
+        public int[] Array
+        {
+            get { return array; }
+        }
+
+        public int Length
+        {
+            get { return array.Length; }
+        }
+
+        public int this[int index]
+        {
+            get { return array[index]; }
+            set { array[index] = value; }
+        }
 
         public OneDim(int n, bool flag = false)
+        {
+            array = new int[n];
+
+            if (flag)
+            {
+                RndEntry(n);
+            }
+            else
+            {
+                UserEntry(n);
+            }
+        }
+
+        public void Input(int n, bool flag = false)
         {
             if (flag)
             {
@@ -22,37 +52,34 @@ namespace hw
         private void RndEntry(int x)
         {
             Random rnd = new Random();
-            int[] arr = new int[x];
+
             for (int i = 0; i < x; i++)
             {
-                arr[i] = rnd.Next(1, 100);
+                array[i] = rnd.Next(1, 100);
             }
-            array = arr;
         }
         private void UserEntry(int x)
         {
-            int[] arr = new int[x];
             for (int i = 0; i < x; i++)
             {
-                arr[i] = int.Parse(Console.ReadLine());
+                array[i] = int.Parse(Console.ReadLine());
             }
-            array = arr;
         }
 
-        private double AverageValue(int[] Array)
+        public double AverageValue()
         {
             double summa = 0;
-            foreach (int el in Array)
+            foreach (int el in array)
             {
                 summa += el;
             }
-            return summa / Array.Length;
+            return summa / array.Length;
         }
 
-        private int[] ElementsLessHundred(int[] Array)
+        private int[] ElementsLessHundred()
         {
-            int n = Array.Length;
-            foreach (int el in Array)
+            int n = array.Length;
+            foreach (int el in array)
             {
                 if (Math.Abs(el) > 100)
                 {
@@ -64,28 +91,33 @@ namespace hw
             {
                 if (array[i] <= 100)
                 {
-                    arr[i] = Array[i];
+                    arr[i] = array[i];
                 }
             }
             return arr;
         }
 
-        private int[] DeleteDublicates(int[] Array)
+        private int[] DeleteDublicates()
         {
-            int[] unique = Array.Distinct().ToArray();
+            int[] unique = array.Distinct().ToArray();
             return unique;
         }
 
+        public void Show()
+        {
+            Console.WriteLine(String.Join("", array));
+        }
         public void Print()
         {
-            Console.WriteLine($"Среднее значение массива: {AverageValue(array)}");
-            Console.WriteLine(String.Join(" ", array));
+            Console.WriteLine($"Среднее значение массива: {AverageValue()}");;
 
-            int[] arr1 = ElementsLessHundred(array);
+            Show();
+
+            int[] arr1 = ElementsLessHundred();
             Console.WriteLine("Элементы, меньшие 100");
             Console.WriteLine(String.Join(" ", arr1));
 
-            int[] arr2 = DeleteDublicates(array);
+            int[] arr2 = DeleteDublicates();
             Console.WriteLine("Уникальные элементы (без повторяющихся элементов)");
             Console.WriteLine(String.Join(" ", arr2));
         }

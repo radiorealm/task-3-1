@@ -8,7 +8,7 @@ namespace hw
         {
             Console.WriteLine("Введите тип массива (1, если одномерный, 2, если двумерный и 3, если ступенчатый)");
             int clas = int.Parse(Console.ReadLine());
-            Console.WriteLine("Введите способ ввода (true, если рандомно, false, если вводите вручную");
+            Console.WriteLine("Введите способ ввода (true, если рандомно, false, если вводите вручную)");
             bool entry = bool.Parse(Console.ReadLine());
             switch (clas)
             {

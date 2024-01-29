@@ -6,4 +6,8 @@
     <RootNamespace>task_3_1</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Include="C:\Users\dudorova.daria\source\repos\initialization.cs" Link="initialization.cs" />
+  </ItemGroup>
+
 </Project>

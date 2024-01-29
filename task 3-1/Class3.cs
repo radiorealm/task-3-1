@@ -4,9 +4,22 @@ namespace hw
 {
     class JaggedDim
     {
-        public int[][] array;
+        public OneDim[] array;
 
         public JaggedDim(int n, bool flag = false)
+        {
+            array = new OneDim[n];
+            if (flag)
+            {
+                RndEntry(n);
+            }
+            else
+            {
+                UserEntry(n);
+            }
+        }
+
+        public void Input(int n, bool flag = false)
         {
             if (flag)
             {
@@ -21,45 +34,25 @@ namespace hw
         private void RndEntry(int n)
         {
             Random rnd = new Random();
-            int[][] ans = new int[n][];
-            int[] s;
+
             for (int i = 0; i < n; i++)
             {
-                s = new int[rnd.Next(1, 10)];
-                ans[i] = new int[s.Length];
-                for (int j = 0; j < s.Length; j++)
-                {
-                    ans[i][j] = rnd.Next(1, 100);
-                }
+                array[i] = new OneDim(rnd.Next(1, 10), true);
             }
-            array = ans;
         }
         private void UserEntry(int n)
         {
-            int[][] ans = new int[n][];
-            string[] s;
             for (int i = 0; i < n; i++)
             {
-                Console.WriteLine($"Введите в строчку через пробел значения для строки {i}");
-                s = Console.ReadLine().Split(' ');
-                ans[i] = new int[s.Length];
-                for (int j = 0; j < s.Length; j++)
-                {
-                    ans[i][j] = int.Parse(s[j]);
-                }
+                array[i] = new OneDim(int.Parse(Console.ReadLine()));
             }
-            array = ans;
         }
 
         public void Show()
         {
-            foreach (int[] m in array)
+            foreach (OneDim el in array)
             {
-                foreach (int el in m)
-                {
-                    Console.Write($"{el} ");
-                }
-                Console.WriteLine();
+                el.Show();
             }
         }
 
@@ -79,32 +72,29 @@ namespace hw
 
         public void AverageValue()
         {
-            int n = 0;
+            int num = 0;
             double summa = 0;
-            for (int i = 0; i < array.Length; i++)
+
+            foreach (OneDim el in array)
             {
-                for (int j = 0; j < array[i].Length; j++)
+                for (int j = 0; j < (el.Array).Length; j++)
                 {
-                    summa += array[i][j];
-                    n++;
+                    summa += (el.Array)[j];
+                    num++;
                 }
             }
-            Console.WriteLine($"Среднее значение массива: {summa / n}");
+
+            Console.WriteLine($"Среднее значение массива: {summa / num}");
         }
 
         public void AverageValueMassives()
         {
-            double summa = 0;
-            for (int i = 0; i < array.Length; i++)
+            Console.WriteLine($"Среднее значение массивов:");
+
+            foreach (OneDim el in array)
             {
-                foreach (int el in array[i])
-                {
-                    summa += el;
-                }
-                Console.WriteLine($"Среднее значение массива {i + 1}: {summa / array[i].Length}");
-                summa = 0;
+                el.AverageValue();
             }
-            Console.WriteLine();
         }
     }
 }
