@@ -1,43 +1,43 @@
 ﻿using System;
 
-namespace hw
+namespace inheritance
 {
     class Program
     {
         static void Main()
         {
-            Console.WriteLine("Введите тип массива (1, если одномерный, 2, если двумерный и 3, если ступенчатый)");
-            int clas = int.Parse(Console.ReadLine());
-            Console.WriteLine("Введите способ ввода (true, если рандомно, false, если вводите вручную");
+            Parent[] arr = new Parent[3];
+
+            Console.WriteLine("Введите n");
+            int n = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Выберите способ ввода для всех массивов (false, если случайно, true, если вручную)");
             bool entry = bool.Parse(Console.ReadLine());
-            switch (clas)
+
+            Console.WriteLine();
+
+            OneDim onedim = new(n, entry);
+
+            Console.WriteLine("Введите m для двумерного массива:");
+            TwoDim twodim = new(n, int.Parse(Console.ReadLine()), entry);
+            Console.WriteLine();
+
+            JaggedDim jaggeddim = new(n, entry);
+
+            arr[0] = onedim;
+            arr[1] = twodim;
+            arr[2] = jaggeddim;
+
+            for (int i = 0; i < 3; i++)
             {
-                case 1:
-                    Console.WriteLine("Введите количество элементов в массиве (целое число)");
-                    OneDim onedim = new OneDim(int.Parse(Console.ReadLine()), entry);
-                    onedim.Print();
-                    break;
+                Console.WriteLine($"Массив {arr[i].GetType()}:");
+                arr[i].Print();
+                Console.WriteLine();
 
-                case 2:
-                    Console.WriteLine("Введите количество строк в массиве (целое число)");
-                    int n = int.Parse(Console.ReadLine());
-                    Console.WriteLine("Введите количество столбцов в массиве (целое число)");
-                    TwoDim twodim = new TwoDim(n, int.Parse(Console.ReadLine()), entry);
-                    twodim.Show();
-                    Console.WriteLine();
-                    twodim.Show_R();
-                    break;
-
-                case 3:
-                    Console.WriteLine("Введите количество строк в массиве (целое число)");
-                    JaggedDim jaggeddim = new JaggedDim(int.Parse(Console.ReadLine()), entry);
-                    jaggeddim.Show();
-                    jaggeddim.AverageValue();
-                    jaggeddim.AverageValueMassives();
-                    jaggeddim.MultiplyIndex();
-                    jaggeddim.Show();
-                    break;
+                Console.WriteLine($"Его среднее значение: {arr[i].AverageValue()}");
+                Console.WriteLine();
             }
         }
     }
+
 }
